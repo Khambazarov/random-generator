@@ -10,7 +10,7 @@ function App() {
       2: "Alper",
       3: "Liang",
       4: "Matthias",
-      5: "Momad",
+      5: "Mohammad",
       6: "Murat",
       7: "Nasrin",
       8: "Olha",
@@ -23,6 +23,7 @@ function App() {
     const amountOfParticipants = Object.keys(participants).length;
 
     const randomParticipant = Math.ceil(Math.random() * amountOfParticipants);
+
     return setTimeout(() => {
       setParticipants(participants[randomParticipant]);
     }, 500);
