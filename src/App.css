@@ -88,6 +88,7 @@ body {
     .robohash {
       width: 3rem;
       height: 3rem;
+      cursor: none;
 
       &:first-child {
         transform: scaleX(-1);
