@@ -106,6 +106,10 @@ body {
       }
     }
 
+    .robohash:hover ~ .robohash {
+      transform: rotate(30deg);
+    }
+
     .btn {
       display: flex;
       align-items: center;
@@ -147,19 +151,35 @@ body {
       }
 
       input {
-        width: 1rem;
-        height: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
         margin-right: 1rem;
         cursor: pointer;
+        background-color: transparent;
       }
-    }
 
-    .label-select-all {
-      border: none;
+      input[type="checkbox"] {
+        appearance: none;
+        border: 0.5rem solid firebrick;
+        border-radius: 50%;
 
-      .select-all {
-        width: 1.25rem;
-        height: 1.25rem;
+        &:checked {
+          background-color: #ddd;
+          border: 0.5rem solid #080;
+        }
+
+        &:not(:checked):hover {
+          background-color: inherit;
+          border: 0.25rem solid #ddd;
+        }
+
+      .label-select-all {
+        border: none;
+
+        .select-all {
+          width: 2rem;
+          height: 1rem;
+        }
       }
     }
   }

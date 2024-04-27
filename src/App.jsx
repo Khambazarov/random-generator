@@ -7,7 +7,7 @@ function App() {
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState();
-
+  const [hoveredStudent, setHoveredStudent] = useState(null);
 
   const studentsArray = [
     "Ali",
@@ -92,6 +92,14 @@ function App() {
     setSelectedStudents([]);
   };
 
+  const handleMouseEnter = (student) => {
+    setHoveredStudent(student);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredStudent(null);
+  };
+
   return (
     <>
       {selectedStudents.length > 1 && loading ? (
@@ -130,19 +138,46 @@ function App() {
             Reset
           </button>
           <ul>
-            {students.map((student) => (
+            {students.map((student, index) => (
               <div key={student}>
-                <li>
+                <li style={{ overflow: "hidden" }}>
                   <img
                     className="robohash"
                     src={robohash[student]}
                     alt="robohash"
+                    style={
+                      hoveredStudent && students.indexOf(hoveredStudent) > index
+                        ? {
+                            transform: "rotate(30deg) scaleX(-1)",
+                            overflow: "hidden",
+                          }
+                        : hoveredStudent &&
+                          students.indexOf(hoveredStudent) < index
+                        ? {
+                            transform: "rotate(-30deg) scaleX(-1)",
+                            overflow: "hidden",
+                          }
+                        : {}
+                    }
                   />
-                  {student}
+                  <span
+                    onMouseEnter={() => handleMouseEnter(student)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    {student}
+                  </span>
                   <img
                     className="robohash"
                     src={robohash[student]}
                     alt="robohash"
+                    style={
+                      hoveredStudent && students.indexOf(hoveredStudent) > index
+                        ? { transform: "rotate(-30deg)", overflow: "hidden" }
+                        : hoveredStudent &&
+                          students.indexOf(hoveredStudent) < index
+                        ? { transform: "rotate(30deg)", overflow: "hidden" }
+                        : {}
+                    }
                   />
                 </li>
               </div>
