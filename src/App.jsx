@@ -1,37 +1,13 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import "./App.css";
-import Ali from "./assets/robohash/Ali.png";
-import Alper from "./assets/robohash/Alper.png";
-import Liang from "./assets/robohash/Liang.png";
-import Matthias from "./assets/robohash/Matthias.png";
-import Mohammad from "./assets/robohash/Mohammad.png";
-import Murat from "./assets/robohash/Murat.png";
-import Nasrin from "./assets/robohash/Nasrin.png";
-import Olha from "./assets/robohash/Olha.png";
-import Olivia from "./assets/robohash/Olivia.png";
-import Renat from "./assets/robohash/Renat.png";
-import Sebastian from "./assets/robohash/Sebastian.png";
-import Sergen from "./assets/robohash/Sergen.png";
-
-const robohash = {
-  Ali,
-  Alper,
-  Liang,
-  Matthias,
-  Mohammad,
-  Murat,
-  Nasrin,
-  Olha,
-  Olivia,
-  Renat,
-  Sebastian,
-  Sergen,
-};
 
 function App() {
+  const [robohash, setRobohash] = useState({});
   const [students, setStudents] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [countdown, setCountdown] = useState();
+
 
   const studentsArray = [
     "Ali",
@@ -48,15 +24,44 @@ function App() {
     "Sergen",
   ];
 
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
+  useEffect(() => {
+    const loadRobohash = async () => {
+      let robohash = {};
+      for (let student of studentsArray) {
+        robohash[student] = (
+          await import(`./assets/robohash/${student}.png`)
+        ).default;
+      }
+      setRobohash(robohash);
+    };
+
+    loadRobohash();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const countdownFN = useCallback(() => {
+    setCountdown(3);
+    const timer = setInterval(() => {
+      setCountdown((currentCountdown) => {
+        if (currentCountdown <= 1) {
+          clearInterval(timer);
+          return 0;
+        } else {
+          return currentCountdown - 1;
+        }
+      });
+    }, 1000);
+  }, []);
+
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
     setSelectedStudents((prev) =>
       checked ? [...prev, name] : prev.filter((student) => student !== name)
     );
   };
 
-  const handleSelectAll = (event) => {
-    const { checked } = event.target;
+  const handleSelectAll = (e) => {
+    const { checked } = e.target;
     setSelectedStudents(checked ? studentsArray : []);
   };
 
@@ -74,6 +79,7 @@ function App() {
 
   const randomize = () => {
     setLoading(true);
+    countdownFN();
     setTimeout(() => {
       const randomizedStudents = randomizeArray(selectedStudents);
       setStudents(randomizedStudents);
@@ -88,26 +94,26 @@ function App() {
 
   return (
     <>
-      {loading ? (
+      {selectedStudents.length > 1 && loading ? (
         <div className="loader">
-          <h1 className="loading">Wer darf antreten?</h1>
+          <h1 className="loading">{countdown}</h1>
         </div>
-      ) : students.length === 0 ? (
+      ) : students.length < 2 ? (
         <div className="wrapper">
           <button onClick={randomize} className="btn">
             Randomize Students
           </button>
-          <h1 className="heading">Select Students </h1>
-          <label>
+          <label className="label-select-all">
             <input
+              className="select-all"
               type="checkbox"
               name="selectAll"
               onChange={handleSelectAll}
             />
-            Select All
+            <h1 className="heading">Select All Students </h1>
           </label>
-          {studentsArray.map((student) => (
-            <label key={student}>
+          {studentsArray.map((student, index) => (
+            <label key={index}>
               <input
                 type="checkbox"
                 name={student}
@@ -121,12 +127,12 @@ function App() {
       ) : (
         <div className="wrapper">
           <button onClick={reset} className="btn">
-            Reset Students
+            Reset
           </button>
           <ul>
-            {students.map((student, index) => (
-              <>
-                <li key={index}>
+            {students.map((student) => (
+              <div key={student}>
+                <li>
                   <img
                     className="robohash"
                     src={robohash[student]}
@@ -139,7 +145,7 @@ function App() {
                     alt="robohash"
                   />
                 </li>
-              </>
+              </div>
             ))}
           </ul>
         </div>

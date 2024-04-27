@@ -4,6 +4,21 @@
   box-sizing: border-box;
 }
 
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    color: transparent;
+  }
+  10% {
+    transform: scale(3);
+    color: firebrick;
+  }
+  100% {
+    transform: scale(3);
+    color: transparent;
+  }
+}
+
 body {
   font-family: "Roboto", sans-serif;
   background-color: #111;
@@ -11,13 +26,14 @@ body {
   letter-spacing: 4px;
 
   .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 3rem;
     display: grid;
     place-items: center;
+    height: 100vh;
+
+    .loading {
+      font-size: 6.25rem;
+      animation: pulse 1s linear infinite;
+    }
   }
 
   .wrapper {
@@ -28,31 +44,26 @@ body {
 
     .heading {
       text-transform: uppercase;
-      font-size: 2.5rem;
+      font-size: 1rem;
       font-weight: bold;
-      height: 3rem;
-      margin-bottom: 0.5rem;
-      padding: 0.5rem 1rem;
+      margin: 0.5rem 0;
       border-radius: 0.5rem;
       color: firebrick;
       text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff;
     }
 
     ul {
-      padding: 1rem;
-      border-radius: 0.5rem;
       background-color: #000;
 
       li {
-        height: 4rem;
         list-style-type: none;
-        font-size: 1.5rem;
-        font-weight: bolder;
-        width: 25rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+        width: 22rem;
         display: flex;
         align-items: center;
-        justify-content: center;
-        border: 1px solid firebrick;
+        justify-content: space-between;
+        border-bottom: 1px solid firebrick;
 
         &:hover::before,
         &:hover::after {
@@ -61,15 +72,37 @@ body {
 
         &:hover {
           background-color: firebrick;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          transition: background-color 0.3s;
+          transition: background-color 1s;
+        }
+
+        &:hover .robohash:first-child {
+          transform: scaleX(1);
+        }
+
+        &:hover .robohash:last-child {
+          transform: scaleX(-1);
         }
       }
-      .robohash {
-        width: 3.5rem;
-        height: 3.5rem;
+    }
+
+    .robohash {
+      width: 3rem;
+      height: 3rem;
+
+      &:first-child {
+        transform: scaleX(-1);
+
+        &:first-child:hover {
+          transform: scaleX(-1);
+        }
+      }
+
+      &:last-child {
+        transform: scaleX(1);
+
+        &:last-child:hover {
+          transform: scaleX(1);
+        }
       }
     }
 
@@ -77,19 +110,17 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1rem;
-      margin: 2rem auto 1rem auto;
-      width: 25rem;
-      height: 3.5rem;
+      padding: 0.5rem 0;
+      margin: 2rem auto 0.5rem auto;
+      width: 22rem;
       background-color: firebrick;
       color: #ddd;
       text-transform: uppercase;
-      letter-spacing: 0.2rem;
-      font-size: 1.5rem;
+      letter-spacing: 2px;
+      font-size: 1.25rem;
       font-weight: bolder;
       border: none;
       border-radius: 0.5rem;
-      text-align: center;
       cursor: pointer;
       transition: background-color 0.3s;
 
@@ -101,12 +132,10 @@ body {
 
     label {
       text-transform: uppercase;
-      height: 3.5rem;
-      margin: 1px;
-      padding-left: 1rem;
-      font-size: 1.25rem;
-      font-weight: bolder;
-      width: 20rem;
+      margin-top: 0.25rem;
+      padding: 0.5rem 0 0.5rem 2rem;
+      font-weight: bold;
+      width: 22rem;
       display: flex;
       align-items: center;
       border: 1px solid firebrick;
@@ -122,6 +151,15 @@ body {
         height: 1rem;
         margin-right: 1rem;
         cursor: pointer;
+      }
+    }
+
+    .label-select-all {
+      border: none;
+
+      .select-all {
+        width: 1.25rem;
+        height: 1.25rem;
       }
     }
   }
