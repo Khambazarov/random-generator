@@ -8,8 +8,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState();
   const [hoveredStudent, setHoveredStudent] = useState(null);
-
-  const studentsArray = [
+  const [newStudent, setNewStudent] = useState("");
+  const [studentsArray, setStudentsArray] = useState([
     "Ali",
     "Alper",
     "Liang",
@@ -22,7 +22,14 @@ function App() {
     "Renat",
     "Sebastian",
     "Sergen",
-  ];
+  ]);
+
+  const addStudent = () => {
+    if (newStudent) {
+      setStudentsArray((prevStudents) => [...prevStudents, newStudent]);
+      setNewStudent("");
+    }
+  };
 
   useEffect(() => {
     const loadRobohash = async () => {
@@ -131,6 +138,22 @@ function App() {
               {student}
             </label>
           ))}
+          <div className="add-student-form">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                addStudent();
+              }}
+            >
+              <input
+                type="text"
+                value={newStudent}
+                onChange={(e) => setNewStudent(e.target.value)}
+                placeholder="Add New Student"
+              />
+              <button type="submit">ADD</button>
+            </form>
+          </div>
         </div>
       ) : (
         <div className="wrapper">
