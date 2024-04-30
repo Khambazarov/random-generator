@@ -146,6 +146,7 @@ function App() {
               }}
             >
               <input
+                autoFocus={true}
                 type="text"
                 value={newStudent}
                 onChange={(e) => setNewStudent(e.target.value)}
