@@ -187,32 +187,31 @@ body {
 
     .add-student-form {
       margin-top: 0.75rem;
-    }
 
-    .add-student-form input {
-      width: 18rem;
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 0.5rem 0 0 0.5rem;
-      /* margin-right: 1rem; */
-    }
+      input {
+        width: 18rem;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 0.5rem 0 0 0.5rem;
+      }
 
-    .add-student-form button {
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
-      font-weight: bold;
-      background-color: firebrick;
-      color: #ddd;
-      border: none;
-      border-radius: 0 0.5rem 0.5rem 0;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+      button {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: firebrick;
+        color: #ddd;
+        border: none;
+        border-radius: 0 0.5rem 0.5rem 0;
+        cursor: pointer;
+        transition: background-color 0.3s;
 
-    .add-student-form button:hover {
-      background-color: #ddd;
-      color: firebrick;
+        &:hover {
+          background-color: #ddd;
+          color: firebrick;
+        }
+      }
     }
   }
 }
