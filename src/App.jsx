@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -35,8 +35,6 @@ function App() {
       let robohash = {};
       for (let student of studentsArray) {
         robohash[student] = `https://robohash.org/${student}`;
-        //   await import(`./assets/robohash/${student}.png`)
-        // ).default;
       }
       setRobohash(robohash);
     };
@@ -44,22 +42,19 @@ function App() {
     loadRobohash();
   }, [studentsArray]);
 
-  const countdownFN =
-    // useCallback(
-    () => {
-      setCountdown(3);
-      const timer = setInterval(() => {
-        setCountdown((currentCountdown) => {
-          if (currentCountdown <= 1) {
-            clearInterval(timer);
-            return 0;
-          } else {
-            return currentCountdown - 1;
-          }
-        });
-      }, 1000);
-    };
-  // , []);
+  const countdownFN = () => {
+    setCountdown(3);
+    const timer = setInterval(() => {
+      setCountdown((currentCountdown) => {
+        if (currentCountdown <= 1) {
+          clearInterval(timer);
+          return 0;
+        } else {
+          return currentCountdown - 1;
+        }
+      });
+    }, 1000);
+  };
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
