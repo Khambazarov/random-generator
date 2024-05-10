@@ -13,7 +13,6 @@ function App() {
     "Ali",
     "Alper",
     "Liang",
-    "Matthias",
     "Mohammad",
     "Murat",
     "Nasrin",
@@ -35,30 +34,32 @@ function App() {
     const loadRobohash = async () => {
       let robohash = {};
       for (let student of studentsArray) {
-        robohash[student] = (
-          await import(`./assets/robohash/${student}.png`)
-        ).default;
+        robohash[student] = `https://robohash.org/${student}`;
+        //   await import(`./assets/robohash/${student}.png`)
+        // ).default;
       }
       setRobohash(robohash);
     };
 
     loadRobohash();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [studentsArray]);
 
-  const countdownFN = useCallback(() => {
-    setCountdown(3);
-    const timer = setInterval(() => {
-      setCountdown((currentCountdown) => {
-        if (currentCountdown <= 1) {
-          clearInterval(timer);
-          return 0;
-        } else {
-          return currentCountdown - 1;
-        }
-      });
-    }, 1000);
-  }, []);
+  const countdownFN =
+    // useCallback(
+    () => {
+      setCountdown(3);
+      const timer = setInterval(() => {
+        setCountdown((currentCountdown) => {
+          if (currentCountdown <= 1) {
+            clearInterval(timer);
+            return 0;
+          } else {
+            return currentCountdown - 1;
+          }
+        });
+      }, 1000);
+    };
+  // , []);
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
