@@ -1,0 +1,10 @@
+{
+  "name": "random-generator",
+  "short_name": "rangen",
+  "theme_color": "#000",
+  "background_color": "#000",
+  "display": "fullScreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "https://random-generator-for-students.netlify.app"
+}
