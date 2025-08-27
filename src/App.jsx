@@ -12,7 +12,9 @@ function App() {
   const [studentsArray, setStudentsArray] = useState([
     "Ali",
     "Alper",
+    "Florian",
     "Liang",
+    "Martin",
     "Mohammad",
     "Murat",
     "Nasrin",
